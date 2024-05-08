@@ -6,23 +6,81 @@ import calendarIcon from './turnos-images/calendar.svg';
 import listIcon from './turnos-images/list.svg';
 import stopIcon from './turnos-images/stop.svg';
 import notificationIcon from './turnos-images/notifications.svg';
+import homeIcon from './turnos-images/homeIcon.svg';
 
-const NavMenu = ({ userType, signOut }) => {
+import { USER_TYPE, PAGES } from '../../constants/constants';
+
+const NavMenu = ({
+  userType,
+  signOut,
+  handleCurrentPage,
+  handleService,
+  userName,
+}) => {
   return (
     <div className="menuContainer">
-      <div className="menuItems">
-        <img className="menuIcon" src={calendarIcon} />
-        {userType === 'user' && <img className="menuIcon" src={listIcon} />}
-        <img className="menuIcon" src={stopIcon} />
-        {userType === 'user' && (
-          <img className="menuIcon" src={notificationIcon} />
+      <ul className="menuList">
+        <li
+          className="menuItem"
+          onClick={() => {
+            handleService('');
+            handleCurrentPage(PAGES.HOME);
+          }}
+        >
+          <img className="menuIcon" src={homeIcon} />
+          <span>Inicio</span>
+        </li>
+        <li
+          className="menuItem"
+          onClick={() => handleCurrentPage(PAGES.SHEDULE)}
+        >
+          <img className="menuIcon" src={calendarIcon} />
+          <span>Crear turno</span>
+        </li>
+        {userType === USER_TYPE.USER && (
+          <li
+            className="menuItem"
+            onClick={() => handleCurrentPage(PAGES.TURN)}
+          >
+            <img className="menuIcon" src={listIcon} />
+            <span>Ver turno</span>
+          </li>
         )}
-      </div>
-      <div className="menuItems mb">
-        {userType === 'user' && <img className="menuIcon" src={userIcon} />}
-        {userType === 'admin' && <img className="menuIcon" src={adminIcon} />}
-        <img className="menuIcon" src={logOutIcon} onClick={signOut} />
-      </div>
+        <li
+          className="menuItem"
+          onClick={() => handleCurrentPage(PAGES.CANCEL)}
+        >
+          <img className="menuIcon" src={stopIcon} />
+          <span>Cancelar turno</span>
+        </li>
+        {userType === USER_TYPE.USER && (
+          <li
+            className="menuItem"
+            onClick={() => handleCurrentPage(PAGES.NOTIFICATIONS)}
+          >
+            <img className="menuIcon" src={notificationIcon} />
+            <span>Notificaciones</span>
+          </li>
+        )}
+      </ul>
+      <ul className="menuList logOut">
+        <li className="menuItem">
+          {userType === 'user' && <img className="menuIcon" src={userIcon} />}
+          {userType === 'admin' && <img className="menuIcon" src={adminIcon} />}
+          <span>{userName}</span>
+        </li>
+        <li
+          className="menuItem"
+          onClick={() => {
+            signOut();
+            handleCurrentPage('initialPage');
+            handleService('');
+          }}
+        >
+          <img className="menuIcon" src={logOutIcon} />
+          <span>Salir</span>
+        </li>
+      </ul>
     </div>
   );
 };
