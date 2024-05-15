@@ -223,6 +223,11 @@ body {
   color: #fff;
   border-radius: 10px;
   cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ----------------------------- HOME ------------------------------------- */
@@ -257,9 +262,15 @@ body {
   margin-top: 7vh;
 }
 
+.linkCard {
+  color: #000000;
+  text-decoration: none;
+}
+
 .card {
   width: 20vw;
-  height: 25vw;
+  height: 23vw;
+  min-height: fit-content;
   border-radius: 20px;
   border: solid 1px #64bcfb;
   background-color: #c1f7f980;
@@ -268,11 +279,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 7vh;
+  gap: 2vw;
+  overflow: hidden;
 }
 .cardImage {
-  width: 16vw;
-  height: 16vw;
+  width: 14vw;
+  height: 14vw;
 }
 .cardText {
   font-size: 3vh;

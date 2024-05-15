@@ -4,8 +4,9 @@ import pagosImage from './turnos-images/imagen_pagos.png';
 import reclamosImage from './turnos-images/imagen_reclamos.png';
 import Card from './Card';
 import { PAGES, SERVICES } from '../../constants/constants';
+import { Link } from 'react-router-dom';
 
-const Home = ({ handleService, handlePage }) => {
+const Home = ({ handleService }) => {
   return (
     <div className="section">
       <div className="homeDescription">
@@ -16,24 +17,27 @@ const Home = ({ handleService, handlePage }) => {
         </div>
       </div>
       <div className="cardsContainer">
-        <Card
-          title={SERVICES.CONSULTAS}
-          image={consultasImage}
-          handleService={handleService}
-          handlePage={handlePage}
-        />
-        <Card
-          title={SERVICES.PAGOS}
-          image={pagosImage}
-          handleService={handleService}
-          handlePage={handlePage}
-        />
-        <Card
-          title={SERVICES.RECLAMOS}
-          image={reclamosImage}
-          handleService={handleService}
-          handlePage={handlePage}
-        />
+        <Link className="linkCard" to="/shedule">
+          <Card
+            title={SERVICES.CONSULTAS}
+            image={consultasImage}
+            handleService={handleService}
+          />
+        </Link>
+        <Link className="linkCard" to="/shedule">
+          <Card
+            title={SERVICES.PAGOS}
+            image={pagosImage}
+            handleService={handleService}
+          />
+        </Link>
+        <Link className="linkCard" to="/shedule">
+          <Card
+            title={SERVICES.RECLAMOS}
+            image={reclamosImage}
+            handleService={handleService}
+          />
+        </Link>
       </div>
     </div>
   );
