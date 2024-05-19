@@ -8,9 +8,9 @@ export const PAGES = {
 };
 
 export const SERVICES = {
-  CONSULTAS: 'Consultas',
-  PAGOS: 'Pagos',
-  RECLAMOS: 'Reclamos',
+  CONSULTAS: 'CONSULTAS',
+  PAGOS: 'PAGOS',
+  RECLAMOS: 'RECLAMOS',
 };
 
 export const USER_TYPE = {
@@ -20,4 +20,12 @@ export const USER_TYPE = {
 
 export const SERVICES_BACK = {
   TOKEN_SERVICE: "http://localhost:8081/token/received",
+  SERVICES_SERVICE: "http://localhost:8082/api/turn/services",
 };
+
+export const KEYCLOAK = {
+  URL: "http://localhost:8090",
+  REALM: "TurnsManagementApp",
+  CLIENT_ID: "frontend",
+  ROLE_ADMIN: "Administrator",
+}
