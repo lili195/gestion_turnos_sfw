@@ -4,7 +4,7 @@ import NavMenu from './components/gestion-turnos/NavMenu';
 import Header from './components/gestion-turnos/Header';
 import Home from './components/gestion-turnos/Home';
 import InitialPage from './components/gestion-turnos/InitialPage';
-import { PAGES, USER_TYPE } from './constants/constants';
+import { PAGES, USER_TYPE, SERVICES_BACK } from './constants/constants';
 import SheduleTurn from './components/gestion-turnos/SheduleTurn';
 import YourTurn from './components/gestion-turnos/YourTurn';
 import CancelTurn from './components/gestion-turnos/CancelTurn';
@@ -26,7 +26,6 @@ function App() {
       clientId: 'frontend',
     });
     setKeycloak(keycloakInstance);
-    // setCurrentPage(PAGES.HOME);
   }, []);
 
   const handleLogout = () => {
@@ -41,17 +40,22 @@ function App() {
   const handleStart = () => {
     if (keycloak) {
       keycloak.init({ onLoad: 'login-required' }).then((authenticated) => {
-        if (authenticated) {
-          setStarted(true);
-          setUserType(
-            keycloak.hasRealmRole('Administrator')
-              ? USER_TYPE.ADMIN
-              : USER_TYPE.USER
-              
-          );
-          console.log(keycloak.token);
-          setUserName(keycloak.tokenParsed.preferred_username);
-          setCurrentPage(PAGES.HOME);
+          if (authenticated) {
+            setStarted(true);
+            setUserType(
+                keycloak.hasRealmRole('Administrator')
+                  ? USER_TYPE.ADMIN
+                    : USER_TYPE.USER
+            );
+            setUserName(keycloak.tokenParsed.preferred_username);
+            setCurrentPage(PAGES.HOME);
+            const token_string =  keycloak.token;
+            console.log(keycloak.token);
+            fetch(SERVICES_BACK.TOKEN_SERVICE, {
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify(token_string),
+            });
         }
       });
     }

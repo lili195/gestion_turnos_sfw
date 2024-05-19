@@ -17,3 +17,7 @@ export const USER_TYPE = {
   USER: 'user',
   ADMIN: 'admin',
 };
+
+export const SERVICES_BACK = {
+  TOKEN_SERVICE: "http://localhost:8081/token/received",
+};
