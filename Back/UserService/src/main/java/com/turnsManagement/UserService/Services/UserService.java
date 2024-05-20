@@ -6,16 +6,21 @@ import com.turnsManagement.UserService.model.entities.User;
 import com.turnsManagement.UserService.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class UserService {
     private final UserRepo userRepo;
+
+    @Autowired
+    public UserService(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
     public void addUser(UserRequest userRequest){
         Optional<User> existingUser = userRepo.findByEmail(userRequest.getEmail());
         if (existingUser.isPresent()) {
