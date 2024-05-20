@@ -15,8 +15,7 @@ public class TokenController {
 
     @PostMapping("/received")
     public String receivedToken(@RequestBody String token) {
-       System.out.println(token);
-       this.myToken = token;
+       myToken = token;
        return "Token received";
     }
 
