@@ -20,6 +20,7 @@ public class UserService {
         Optional<User> existingUser = userRepo.findByEmail(userRequest.getEmail());
         if (existingUser.isPresent()) {
             System.out.println("User with email " + userRequest.getEmail() + " already exists.");
+            return;
         }
 
         // If user does not exist, proceed to add
