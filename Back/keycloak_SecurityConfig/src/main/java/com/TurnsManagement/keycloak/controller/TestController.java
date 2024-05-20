@@ -34,7 +34,7 @@ public class TestController {
 
         // Send the POST request
         ResponseEntity<String> response = restTemplate.exchange(
-                "http://localhost:8083/api/user/addUser",
+                "http://localhost:8086/api/user/addUser",
                 HttpMethod.POST,
                 requestEntity,
                 String.class
@@ -47,9 +47,9 @@ public class TestController {
     private String getUsernameFromAuthentication(Authentication authentication) {
         if (authentication != null && authentication.getPrincipal() instanceof Jwt) {
             Jwt jwt = (Jwt) authentication.getPrincipal();
-            String claim = jwt.getClaim("name");
+            String claim = jwt.getClaim("preferred_username");
             System.out.print("\n"+ claim);
-            return jwt.getClaim("name");
+            return jwt.getClaim("preferred_username");
         }
         return "Unknown name";
     }

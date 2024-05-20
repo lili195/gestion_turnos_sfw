@@ -30,6 +30,6 @@ export const SERVICES_BACK = {
 export const KEYCLOAK = {
   URL: "http://localhost:8090",
   REALM: "TurnsManagementApp",
-  CLIENT_ID: "turns-management-project",
+  CLIENT_ID: "frontend",
   ROLE_ADMIN: "Administrator",
 }
