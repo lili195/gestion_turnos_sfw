@@ -1,36 +1,18 @@
 import { SERVICES_BACK } from '../constants/constants';
 
-// export const fetchServiceInfo = async (serviceType) => {
-//     try {
-//         const response = await fetch(`${SERVICES_BACK.SERVICES_INFO}/${serviceType}`);
-//         if (!response.ok) {
-//             throw new Error('Service not found PILAR');
-//         }
-//         const data = response.json();
-//         return data;
-//     } catch (error) {
-//         console.error('Error fetching service info:', error);
-//         throw error;
-//     }
-// };
-
-export const fetchServiceInfo = (serviceType) => {
-    fetch(`${SERVICES_BACK.SERVICES_INFO}/${serviceType}`)
-    .then(response => {
+export const fetchServiceInfo = async (serviceType) => {
+    try {
+        const response = await fetch(`${SERVICES_BACK.SERVICES_INFO}/${serviceType}`);
         if (!response.ok) {
             throw new Error(`Error en la petición: ${response.statusText}`);
         }
-        return response.json(); // o response.text() dependiendo del tipo de respuesta esperada
-    })
-    .then(data => {
-        console.log('Datos recibidos:', data);
+        const data = await response.json();
         return data;
-        // Procesa los datos como necesites.
-    })
-    .catch(error => {
-        console.error('Hubo un problema con el fetch:', error);
-    });
-}
+    } catch (error) {
+        console.error('Hubo un problema con el fetch:', error);
+        throw error;
+    }
+};
 
 export const checkUserShiftByDate = async (user, date) => {
     const response = await fetch(`${SERVICES_BACK.CHECK_SHIFT}/user/${user}/date/${date}`);

@@ -19,7 +19,7 @@ import { fetchServiceInfo } from './api/ServicesApi';
 
 function App() {
   const [keycloak, setKeycloak] = useState(null);
-  const [userType, setUserType] = useState(USER_TYPE.ADMIN); // Inicialmente asumimos que es un usuario normal
+  const [userType, setUserType] = useState(USER_TYPE.ADMIN); // Inicialmente asumimos que es un usuario ADMIN
   const [started, setStarted] = useState(false);
   const [currentPage, setCurrentPage] = useState(PAGES.INITIAL);
   const [currentService, setCurrentService] = useState('');
@@ -44,10 +44,10 @@ function App() {
     ],
     timeSelected: '',
     userList: usersList,
-    dependentList: ['Luis'], // Este está quemado por ahora, acá pondrías: [serviceInfo.dependent]
+    dependentList: ['Luis'],
     userSelected: userName,
     dependentSelected: '',
-    room: 'sala default', // Este está quemado por ahora, acá pondrías: serviceInfo.room
+    room: 'sala default',
   });
 
   const handleTurnInfo = (newInfo) => {
@@ -96,9 +96,6 @@ function App() {
     setCurrentPage(page);
   };
 
-  // ---------------------------------------------------------------------------------------------------------------
-  // ----------------------------------------------DESCOMENTAR LO SIGUIENTE (TUS FUNCIONES)-------------------------------------------------------
-
   useEffect(() => {
     const keycloakInstance = new Keycloak({
       url: KEYCLOAK.URL,
@@ -145,23 +142,28 @@ function App() {
 
   const handleService = async (service) => {
     setCurrentService(service);
-    // try {
-    //   const info = await fetchServiceInfo(service);
-    //   setServiceInfo(info);  // Guardamos la información del servicio en el estado
-    // } catch (error) {
-    //   console.error('Error fetching service info:', error);
-    // }
   };
 
   useEffect(() => {
-    if(currentService !== '' && currentService !== undefined){
-      const info = fetchServiceInfo(currentService);
-      console.log("se ejecuta ", info);
-      setServiceInfo(info);
-    }
-  }, [currentService, serviceInfo])
-  
+    const fetchInfo = async () => {
+      try {
+        if (currentService) {
+          const data = await fetchServiceInfo(currentService);
+          setServiceInfo(data);
+          setTurnInfo((prevTurnInfo) => ({
+            ...prevTurnInfo,
+            dependentList: [data.dependent] ||prevTurnInfo.dependentList,
+            room: data.room || prevTurnInfo.room,
+          }));
+        }
+      } catch (error) {
+        console.error('Error fetching service info:', error);
+      }
+    };
 
+    fetchInfo();
+  }, [currentService]);
+  
   return started ? (
     <div>
       <Header />
