@@ -19,7 +19,7 @@ import { fetchServiceInfo } from './api/ServicesApi';
 
 function App() {
   const [keycloak, setKeycloak] = useState(null);
-  const [userType, setUserType] = useState(USER_TYPE.ADMIN); // Inicialmente asumimos que es un usuario ADMIN
+  const [userType, setUserType] = useState(USER_TYPE.ADMIN); // Inicialmente asumimos que es un usuario normal
   const [started, setStarted] = useState(false);
   const [currentPage, setCurrentPage] = useState(PAGES.INITIAL);
   const [currentService, setCurrentService] = useState('');
@@ -44,10 +44,10 @@ function App() {
     ],
     timeSelected: '',
     userList: usersList,
-    dependentList: ['Luis'],
+    dependentList: ['Luis'], // Este está quemado por ahora, acá pondrías: [serviceInfo.dependent]
     userSelected: userName,
     dependentSelected: '',
-    room: 'sala default',
+    room: 'sala default', // Este está quemado por ahora, acá pondrías: serviceInfo.room
   });
 
   const handleTurnInfo = (newInfo) => {
@@ -96,6 +96,9 @@ function App() {
     setCurrentPage(page);
   };
 
+  // ---------------------------------------------------------------------------------------------------------------
+  // ----------------------------------------------DESCOMENTAR LO SIGUIENTE (TUS FUNCIONES)-------------------------------------------------------
+
   useEffect(() => {
     const keycloakInstance = new Keycloak({
       url: KEYCLOAK.URL,
@@ -128,12 +131,9 @@ function App() {
           setCurrentPage(PAGES.HOME);
           const token_string =  keycloak.token;
           fetch(SERVICES_BACK.TOKEN_SERVICE, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              'Authorization': `Bearer ${keycloak.token}`
-            },
-            //body: JSON.stringify(token_string),
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(token_string),
           });
         }
       });
@@ -142,28 +142,23 @@ function App() {
 
   const handleService = async (service) => {
     setCurrentService(service);
+    // try {
+    //   const info = await fetchServiceInfo(service);
+    //   setServiceInfo(info);  // Guardamos la información del servicio en el estado
+    // } catch (error) {
+    //   console.error('Error fetching service info:', error);
+    // }
   };
 
   useEffect(() => {
-    const fetchInfo = async () => {
-      try {
-        if (currentService) {
-          const data = await fetchServiceInfo(currentService);
-          setServiceInfo(data);
-          setTurnInfo((prevTurnInfo) => ({
-            ...prevTurnInfo,
-            dependentList: [data.dependent] ||prevTurnInfo.dependentList,
-            room: data.room || prevTurnInfo.room,
-          }));
-        }
-      } catch (error) {
-        console.error('Error fetching service info:', error);
-      }
-    };
-
-    fetchInfo();
-  }, [currentService]);
+    if(currentService !== '' && currentService !== undefined){
+      const info = fetchServiceInfo(currentService);
+      console.log("se ejecuta ", info);
+      setServiceInfo(info);
+    }
+  }, [currentService, serviceInfo])
   
+
   return started ? (
     <div>
       <Header />
