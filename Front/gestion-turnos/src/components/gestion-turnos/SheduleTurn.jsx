@@ -66,7 +66,6 @@ const SheduleTurn = ({ turnInfo, handleTurnInfo, userType }) => {
       userSelected: formData.user === '' ? turnInfo.userSelected : formData.user,
       dependentSelected: formData.dependent,
     }));
-    //alert(message)
     resetData();
   };
 
@@ -84,8 +83,6 @@ const SheduleTurn = ({ turnInfo, handleTurnInfo, userType }) => {
       </div>
     </div>
   );
-
-  console.log("turn info " , turnInfo);
 
   useEffect(() => {
     const handleScheduleTurn = async () => {
@@ -123,6 +120,7 @@ const SheduleTurn = ({ turnInfo, handleTurnInfo, userType }) => {
       } catch (error) {
         setMessage(`Error: ${error.message}`);
       }
+
     };
 
     const isNotEmptyTurnInfo =

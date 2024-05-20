@@ -19,6 +19,7 @@ export const USER_TYPE = {
 };
 
 export const SERVICES_BACK = {
+
   TOKEN_SERVICE: "http://localhost:8081/token/received",
   SERVICES_INFO: "http://localhost:8089/api/turn/services",
   CHECK_SHIFT: "http://localhost:8089/api/shifts",
@@ -30,6 +31,6 @@ export const SERVICES_BACK = {
 export const KEYCLOAK = {
   URL: "http://localhost:8090",
   REALM: "TurnsManagementApp",
-  CLIENT_ID: "frontend",
+  CLIENT_ID: "turns-management-project",
   ROLE_ADMIN: "Administrator",
 }
