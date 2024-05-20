@@ -4,10 +4,7 @@ server:
 eureka:
   client:
     service-url:
-      default-zone: http://localhost:8761/eurekameoutSeconds:10nectTimeoutSeconds=10IntervalSeconds=30
-    eureka-server-read-timeout-seconds: 10
-    eureka-server-connect-timeout-seconds: 10
-    registry-fetch-interval-seconds: 30
+      default-zone: http://localhost:8761/eureka/
   interface:
     hostname: localhost
   instance:
@@ -18,7 +15,16 @@ spring:
     name: Gateway-service
   cloud:
     gateway:
-
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins:
+              - "http://localhost:3000"
+            allowed-headers:
+              - "*"
+            allowed-methods:
+              - "*"
+            allow-credentials: true
       discovery:
         locator:
           enable: true
