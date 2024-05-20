@@ -23,7 +23,6 @@ const NavMenu = ({
         <li
           className="menuItem"
           onClick={() => {
-            handleService('');
             handleCurrentPage(PAGES.HOME);
           }}
         >

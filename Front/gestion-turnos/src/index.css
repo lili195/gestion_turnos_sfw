@@ -145,7 +145,7 @@ body {
 .menuItem {
   position: relative;
   max-width: 100vh;
-  max-height: 4vh;
+  max-height: 5vh;
   overflow-y: hidden;
   display: flex;
   flex-direction: row;
@@ -223,6 +223,11 @@ body {
   color: #fff;
   border-radius: 10px;
   cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ----------------------------- HOME ------------------------------------- */
@@ -257,9 +262,15 @@ body {
   margin-top: 7vh;
 }
 
+.linkCard {
+  color: #000000;
+  text-decoration: none;
+}
+
 .card {
   width: 20vw;
-  height: 25vw;
+  height: 23vw;
+  min-height: fit-content;
   border-radius: 20px;
   border: solid 1px #64bcfb;
   background-color: #c1f7f980;
@@ -268,14 +279,145 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 7vh;
+  gap: 2vw;
+  overflow: hidden;
 }
 .cardImage {
-  width: 16vw;
-  height: 16vw;
+  width: 14vw;
+  height: 14vw;
 }
 .cardText {
   font-size: 3vh;
   font-weight: 700;
   margin-bottom: 3vh;
+}
+
+/* ----------------------------- HOME ------------------------------------- */
+.sheduleSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  padding-top: 5vh;
+  max-height: 80vh;
+}
+
+.sheduleTurnSection-title {
+  text-align: center;
+  margin: 2vh auto;
+  font-weight: 700;
+  font-size: 5vh;
+}
+
+.sheduleTurnSection-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #c1f7f9;
+  width: 153vh;
+  max-width: 90%;
+  overflow: hidden;
+  height: 53vh;
+  border-radius: 20px;
+  border: solid 1px #64bcfb;
+  gap: 1vh;
+  margin-top: 5vh;
+}
+
+.sheduleTurnSection-subtitle {
+  text-align: center;
+  font-size: 3.6vh;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 3vh auto;
+}
+
+.sheduleTurnSection-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+}
+
+.sheduleTurnSection-form-up {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10vw;
+}
+
+.sheduleTurnSection-form-down {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2vh 0;
+  width: 100%;
+  gap: 5vh;
+}
+
+.formItem-span {
+  text-align: center;
+  font-weight: 700;
+  font-size: 3vh;
+  display: block;
+}
+
+.formItem-input {
+  background-color: #2a2d31 !important;
+  color: #cccccc !important;
+  font-size: 3vh !important;
+  font-weight: 300 !important;
+  border-radius: 5px;
+  height: 6vh;
+  cursor: pointer;
+  border: none !important;
+}
+
+.smallInput {
+  width: 17vw !important;
+}
+
+.bigInput {
+  width: 30vw;
+}
+
+.sheduleTurnSection-button {
+  margin-top: 2vh;
+  background-color: #00AAFF;
+  color: #fff;
+  width: 40vw;
+  height: 7vh;
+  text-align: center;
+  font-size: 3vh;
+  font-weight: 700;
+  font-stretch: expanded;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.input-group-icon {
+  height: 6vh;
+  width: 4vh;
+  padding: 0 5px;
+  text-align: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #2a2d31 !important;
+  color: #cccccc !important;
+  border: none;
+  border-radius: 0 5px 5px 0;
 }
