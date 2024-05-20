@@ -11,10 +11,8 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 
 @Component
 public class JwtAuthenticationConverter implements Converter<Jwt, AbstractAuthenticationToken> {
@@ -23,51 +21,41 @@ public class JwtAuthenticationConverter implements Converter<Jwt, AbstractAuthen
     @Value("${jwt.auth.converter.principle-attribute}")
     private String principleAttribute;
 
-    @Value("${jwt.auth.converter.resource-id}")
-    private String resourceId;
-
     public AbstractAuthenticationToken convert(Jwt jwt) {
-        Collection<GrantedAuthority> authorities = Stream
-                .concat(jwtGrantedAuthoritiesConverter.convert(jwt).stream(),extractResourceRoles(jwt).stream())
-                .toList();
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+
+        // Convertir las autoridades del token JWT
+        authorities.addAll(jwtGrantedAuthoritiesConverter.convert(jwt));
+
+        // Agregar el nombre del recurso como autoridad
+        String resourceName = extractResourceName(jwt);
+        if (resourceName != null) {
+            authorities.add(new SimpleGrantedAuthority(resourceName));
+        }
+
+        // Crear y devolver el token de autenticación JWT
         return new JwtAuthenticationToken(jwt, authorities, getPrincipleName(jwt));
     }
 
-    private Collection<? extends GrantedAuthority> extractResourceRoles(Jwt jwt) {
-        Map<String, Object> resourceAccess;
-        Map<String, Object> resource;
-        Collection<String> resourceRoles;
 
-        if(jwt.getClaim("resource_access") == null){
-            return List.of();
+    private String extractResourceName(Jwt jwt) {
+        String resourceAccess;
+
+        if(jwt.getClaim("name") == null){
+            return null;
         }
 
-        resourceAccess = jwt.getClaim("resource_access");
+        resourceAccess = jwt.getClaim("name");
+        //System.out.print(resourceAccess);
 
-        if(resourceAccess.get(resourceId) == null){
-            return List.of();
-        }
-
-        resource = (Map<String, Object>) resourceAccess.get(resourceId);
-
-        if(resource.get("roles") == null){
-            return List.of();
-        }
-
-        resourceRoles = (Collection<String>) resource.get("roles");
-
-        return  resourceRoles.stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_".concat(role)))
-                .toList();
+        return  resourceAccess;
     }
 
     private String getPrincipleName(Jwt jwt) {
-        String claimName = JwtClaimNames.SUB;
-
-        if(principleAttribute != null){
-            claimName = principleAttribute;
+        if (principleAttribute != null) {
+            return jwt.getClaim(principleAttribute);
+        } else {
+            return jwt.getSubject();
         }
-        System.out.println(claimName);
-        return jwt.getClaim(claimName);
     }
 }

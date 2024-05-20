@@ -58,9 +58,12 @@ function App() {
           setCurrentPage(PAGES.HOME);
           const token_string = keycloak.token;
           fetch(SERVICES_BACK.TOKEN_SERVICE, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(token_string),
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ${keycloak.token}`
+            },
+            //body: JSON.stringify(token_string),
           });
         }
       });
