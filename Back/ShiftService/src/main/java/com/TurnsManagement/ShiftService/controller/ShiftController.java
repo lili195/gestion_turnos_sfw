@@ -20,6 +20,7 @@ import com.TurnsManagement.ShiftService.service.ShiftService;
 
 @RestController
 @RequestMapping("/api/shifts")
+@CrossOrigin
 public class ShiftController {
     
     @Autowired

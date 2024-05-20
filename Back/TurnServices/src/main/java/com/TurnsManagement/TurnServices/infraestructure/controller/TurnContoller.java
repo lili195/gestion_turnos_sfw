@@ -17,6 +17,7 @@ import com.TurnsManagement.TurnServices.domain.models.ServiceType;
 
 @RestController
 @RequestMapping("/api/turn")
+@CrossOrigin
 public class TurnContoller {
     private final TurnService turnService;
 

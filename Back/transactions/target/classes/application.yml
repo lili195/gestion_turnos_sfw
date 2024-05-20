@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 9099
 
 eureka:
   client:
@@ -8,4 +8,4 @@ eureka:
 
 spring:
   application:
-    name: shift-services
+    name: transactions
