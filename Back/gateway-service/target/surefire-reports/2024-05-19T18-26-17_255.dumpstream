@@ -1,0 +1,5 @@
+# Created at 2024-05-19T18:26:17.678
+Boot Manifest-JAR contains absolute paths in classpath 'Z:\GitDocuments\gestion_turnos_sfw\Back\gateway-service\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+
