@@ -20,7 +20,11 @@ export const USER_TYPE = {
 
 export const SERVICES_BACK = {
   TOKEN_SERVICE: "http://localhost:8081/token/received",
-  SERVICES_SERVICE: "http://localhost:8082/api/turn/services",
+  SERVICES_INFO: "http://localhost:8082/api/turn/services",
+  CHECK_SHIFT: "http://localhost:8083/api/shifts",
+  GET_SHIFTS: "http://localhost:8083/api/shifts/getShifts",
+  CREATE_SHIFT: "http://localhost:8083/api/shifts/createShift",
+  DELETE_SHIFT: "http://localhost:8083/api/shifts/delete",
 };
 
 export const KEYCLOAK = {
